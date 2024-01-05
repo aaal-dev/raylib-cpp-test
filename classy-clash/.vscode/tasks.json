@@ -1,0 +1,111 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build debug",
+            "type": "process",
+            "dependsOn": [ "clean" ],
+            "command": "make",
+            "args": [
+                "PLATFORM=PLATFORM_DESKTOP",
+                "BUILD_MODE=DEBUG"
+            ],
+            "windows": {
+                "command": "C:/raylib/w64devkit/bin/mingw32-make.exe",
+                "args": [
+                    "RAYLIB_PATH=C:/raylib/raylib",
+                    "PROJECT_NAME=bin/${workspaceFolderBasename}",
+                    "OBJS=src/*.cpp",
+                    "BUILD_MODE=DEBUG"
+                ]
+            },
+            "osx": {
+                "args": [
+                    "PROJECT_NAME=bin/${workspaceFolderBasename}",
+                    "OBJS=src/*.cpp",
+                    "BUILD_MODE=DEBUG"
+                ]
+            },
+            "linux": {
+                "args": [
+                    "PROJECT_NAME=bin/${workspaceFolderBasename}",
+                    "DESTDIR=${workspaceFolder}/bin",
+                    "RAYLIB_LIBTYPE=SHARED",
+                    "EXAMPLE_RUNTIME_PATH=${workspaceFolder}/lib",
+                    "OBJS=src/*.cpp",
+                    "BUILD_MODE=DEBUG"
+                ]
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+        },
+        {
+            "label": "build release",
+            "type": "process",
+            "dependsOn": [ "clean" ],
+            "command": "make",
+            "args": [
+                "PLATFORM=PLATFORM_DESKTOP"
+            ],
+            "windows": {
+                "command": "C:/raylib/w64devkit/bin/mingw32-make.exe",
+                "args": [
+                    "RAYLIB_PATH=C:/raylib/raylib",
+                    "PROJECT_NAME=bin/${workspaceFolderBasename}",
+                    "OBJS=src/*.cpp"
+                ]
+            },
+            "osx": {
+                "args": [
+                    "PROJECT_NAME=bin/${workspaceFolderBasename}",
+                    "OBJS=src/*.cpp"
+                ]
+            },
+            "linux": {
+                "args": [
+                    "PROJECT_NAME=bin/${workspaceFolderBasename}",
+                    "DESTDIR=${workspaceFolder}/bin",
+                    "RAYLIB_LIBTYPE=SHARED",
+                    "EXAMPLE_RUNTIME_PATH=${workspaceFolder}/lib",
+                    "OBJS=src/*.cpp"
+                ]
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "detail": "compiler: C:\\raylib\\w64devkit\\bin\\g++.exe"
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "linux": {
+                "command": "rm",
+                "args": [
+                    "-rfv",
+                    "bin/*"
+                ]
+            },
+            "windows": {
+                "command": "del",
+                "args": [
+                    "${workspaceFolder}\\bin\\*",
+                ]
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
